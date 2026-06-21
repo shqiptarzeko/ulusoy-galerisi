@@ -14,9 +14,12 @@ let lightboxIndex = 0;
 // Manifest yükle
 async function loadManifest() {
   try {
-    const manifestPath = window.location.protocol === 'file:' 
-      ? './scripts/manifest.json'
-      : '/scripts/manifest.json';
+    let manifestPath = './scripts/manifest.json';
+    
+    // GitHub Pages için repo adı ekle
+    if (window.location.hostname === 'shqiptarzeko.github.io') {
+      manifestPath = '/ulusoy-galerisi/scripts/manifest.json';
+    }
     
     const response = await fetch(manifestPath);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
