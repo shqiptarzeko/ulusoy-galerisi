@@ -1,0 +1,14 @@
+{
+  "name": "galeri-catalog",
+  "version": "1.0.0",
+  "description": "Generate PDF catalog from gallery manifest",
+  "main": "scripts/generate_catalog.js",
+  "scripts": {
+    "generate-pdf": "node scripts/generate_catalog.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  }
+}

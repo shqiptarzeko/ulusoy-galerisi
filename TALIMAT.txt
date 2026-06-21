@@ -1,0 +1,112 @@
+╔═══════════════════════════════════════════════════════════════╗
+║         Galerim - Fotoğraf Galerisi Uygulaması               ║
+║                  Kurulum ve Kullanım                         ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📋 HIZLI BAŞLANGAÇ:
+─────────────────
+
+1. Flash belleğe veya bir klasöre kopyala: ulusoy.rar
+2. Çıkart (Extract / Unzip)
+3. Klasörü aç ve start_server.bat dosyasına çift tıkla
+4. Browser otomatik açılacak ve site görünecek
+
+✅ HAZIR!
+
+
+🖥️ DETAYLI TALIMATLAR:
+─────────────────
+
+1. DOSYALARI HAZIRLA
+   - ulusoy.rar dosyasını bilgisayarına kopyala
+   - Sağ tıkla → "Buraya Çıkart" (Extract) seç
+   - "ulusoy" klasörü oluşacak
+
+2. BAŞLAT
+   - ulusoy klasörünü aç
+   - start_server.bat dosyasına çift tıkla
+   - Browser açılacak ve http://localhost:8000 yüklenir
+   - Eğer Browser açılmazsa:
+     * Internet Explorer/Chrome/Edge'i elle aç
+     * http://localhost:8000 adresine git
+
+3. KAPAT
+   - Browser'da siteyi kullanmaya devam et
+   - Kapatmak için: Komut penceresine Ctrl+C bas veya pencereyi kapat
+
+
+📦 NE İÇERİDİR:
+─────────────────
+- index.html      : Ana sayfa (kategoriler)
+- app.js          : Sitee mantığı ve navigasyon
+- styles.css      : Tasarım ve renkler
+- assets/         : Tüm fotoğraflar (kategorilerine ayrılmış)
+- scripts/        : Yardımcı araçlar
+- start_server.bat: Hızlı başlangıç
+
+
+🎨 ÖZELLIKLER:
+─────────────────
+✓ Kategoriye göre tarama
+✓ Alt kategoriler
+✓ Arama fonksiyonu
+✓ Açılır lightbox galeri
+✓ Fotoğraf indirme
+✓ Tam ekran modu
+✓ Responsive tasarım (mobil uyumlu)
+
+
+❓ SORUNLAR:
+─────────────────
+
+- Sitem açılmıyor?
+  → Python kurulu olduğundan emin ol
+  → Klasör yolunda özel karakter (ñ, ü, vb) varsa taşı
+
+- Fotoğraflar görülmüyor?
+  → Browser'ı yenile (F5)
+  → Cache temizle (Ctrl+Shift+Delete)
+
+- start_server.bat çalışmıyor?
+  → cmd.exe aç
+  → Klasöre gitmek için: cd C:\yolun\ulusoy
+  → Sonra: python -m http.server 8000 yazıp Enter
+
+
+📱 TELEFONDAN VERİ AKTARIMI:
+─────────────────────
+
+1. Aynı WiFi'ye bağlan
+2. Bilgisayarın IP'sini bul:
+   - cmd açıp ipconfig yazıp Enter
+   - IPv4 adresini bul
+3. Telefon tarayıcıda: http://[IP]:8000
+   örn: http://192.168.1.5:8000
+
+
+✨ İPUÇLARI:
+─────────────────
+- Kategorilerdeki resime tıkla → Galeriye gir
+- Sağ/Sol ok tuşları → Fotoğraf geç
+- Escape → Lightbox kapat
+- Çift tıklama → Tam ekran modu
+- Arama kutusu → Kategori ara
+
+
+📞 DESTEK GEREKEN DURUMDA:
+─────────────────────
+
+Bu klasörü olduğu gibi tutmanın:
+- ulusoy/ (klasör)
+  ├── start_server.bat
+  ├── index.html
+  ├── app.js
+  ├── styles.css
+  ├── assets/ (fotoğraflar)
+  └── scripts/ (veri dosyaları)
+
+
+═══════════════════════════════════════════════════════════════
+Son güncelleme: Haziran 2026
+Sürüm: 1.0
+═══════════════════════════════════════════════════════════════

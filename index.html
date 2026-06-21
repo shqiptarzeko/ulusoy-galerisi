@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulusoy Galerisi</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <div class="header-title">
+        <button class="home-btn" id="home-btn">🏠</button>
+        <h1>Ulusoy</h1>
+        <p class="subtitle">Resim Galerisi</p>
+      </div>
+      <input type="text" class="search-box" id="search-input" placeholder="Ara...">
+    </div>
+  </div>
+
+  <div class="breadcrumb" id="breadcrumb" hidden></div>
+
+  <div class="container">
+    <div class="main-content" id="mainContent">
+      <div id="category-grid" class="category-grid"></div>
+      <div id="gallery-section" class="gallery-section" hidden>
+        <div class="gallery-header">
+          <button class="back-btn" id="back-to-categories">← Geri</button>
+          <h2 class="gallery-title" id="gallery-title"></h2>
+        </div>
+        <div id="gallery" class="gallery"></div>
+        <div id="empty-state" class="empty-state" hidden>Resim bulunamadı</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <div class="lb-container">
+      <button class="lb-close" id="lb-close">✕</button>
+      <div class="lb-viewer">
+        <button class="lb-nav" id="lb-prev">❮</button>
+        <img id="lb-img" alt="">
+        <button class="lb-nav" id="lb-next">❯</button>
+      </div>
+      <div class="lb-controls">
+        <span class="lb-info" id="lb-info"></span>
+        <a class="lb-download" id="lb-download" download>İndir</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
