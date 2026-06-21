@@ -39,17 +39,10 @@ async function loadManifest() {
 
 // Image path normalize
 function normalizeImagePath(path) {
-  let normalized = path.replace(/\\/g, '/');
-  
-  if (window.location.protocol === 'file:') {
-    return normalized;
+  if (window.location.hostname === 'shqiptarzeko.github.io') {
+    return '/ulusoy-galerisi/' + path;
   }
-  
-  if (!normalized.startsWith('/')) {
-    normalized = '/' + normalized;
-  }
-  
-  return normalized;
+  return path;
 }
 
 // Build tree
@@ -111,7 +104,7 @@ function createCategoryCard(node, onClick) {
 
   if (firstImage) {
     const img = document.createElement('img');
-    img.src = firstImage;
+    img.src = normalizeImagePath(firstImage);
     img.alt = node.name;
     img.className = 'category-card-image';
     card.appendChild(img);
@@ -208,7 +201,7 @@ function showGallery(node) {
     card.className = 'card';
     const img = document.createElement('img');
     img.loading = 'lazy';
-    img.src = src;
+    img.src = normalizeImagePath(src);
     img.alt = `Fotoğraf ${idx + 1}`;
     card.appendChild(img);
     card.addEventListener('click', (e) => {
@@ -255,7 +248,7 @@ function openLightbox(images, idx) {
   const info = document.getElementById('lb-info');
 
   img.src = images[idx];
-  dl.href = images[idx];
+  dl.href = normalizeImagePath(images[idx]);
   dl.download = images[idx].split('/').pop();
   info.textContent = `${idx + 1} / ${images.length}`;
 
@@ -289,8 +282,8 @@ function navLightbox(delta) {
   const info = document.getElementById('lb-info');
 
   const src = currentImages[currentImageIndex];
-  img.src = src;
-  dl.href = src;
+  img.src = normalizeImagePath(src);
+  dl.href = normalizeImagePath(src);
   dl.download = src.split('/').pop();
   info.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
 
