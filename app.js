@@ -16,13 +16,17 @@ async function loadManifest() {
   try {
     let manifestPath = './scripts/manifest.json';
     
+    console.log('Loading from hostname:', window.location.hostname);
+    console.log('Pathname:', window.location.pathname);
+    
     // GitHub Pages için repo adı ekle
     if (window.location.hostname === 'shqiptarzeko.github.io') {
       manifestPath = '/ulusoy-galerisi/scripts/manifest.json';
+      console.log('Using GitHub Pages path:', manifestPath);
     }
     
     const response = await fetch(manifestPath);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status} at ${manifestPath}`);
     
     const data = await response.json();
     config.categories = data.categories || [];
@@ -33,7 +37,7 @@ async function loadManifest() {
     renderCategoryGrid();
   } catch (err) {
     console.error('✗ Manifest load failed:', err);
-    document.body.innerHTML = '<p style="padding:20px;color:red;">Hata: Manifest dosyası yüklenemedi. Klasör yapısını kontrol et.</p>';
+    document.body.innerHTML = '<p style="padding:20px;color:red;">Hata: ' + err.message + '</p>';
   }
 }
 
