@@ -1,22 +1,22 @@
 @echo off
-REM Galerim - Başlat
-REM Bu dosyayı çalıştırarak siteyi aç
-
-setlocal enabledelayedexpansion
-
-REM Masaüstüne geç
 cd /d "%~dp0"
 
-REM Browser'ı aç
-timeout /t 1 /nobreak > nul
-start http://localhost:8000
+echo Sunucu baslatiliyor...
+start /B python -m http.server 8000
 
-REM Server başlat
+timeout /t 2 /nobreak > nul
+
+REM Once Edge, sonra Chrome, sonra varsayilan tarayici dene
+if exist "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" (
+    start "" "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --new-window "http://127.0.0.1:8000"
+) else if exist "C:\Program Files\Google\Chrome\Application\chrome.exe" (
+    start "" "C:\Program Files\Google\Chrome\Application\chrome.exe" "http://127.0.0.1:8000"
+) else (
+    start http://127.0.0.1:8000
+)
+
 echo.
-echo Sunucu başlatılıyor... http://localhost:8000
-echo Browser'da site açıldı. Bu pencereyi kapatmak için Ctrl+C basın.
+echo Uygulama http://127.0.0.1:8000 adresinde calisiyor.
+echo Kapatmak icin bu pencereyi kapatin.
 echo.
-
-python -m http.server 8000
-
 pause

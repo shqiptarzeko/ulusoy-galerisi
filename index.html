@@ -14,7 +14,10 @@
         <h1>Ulusoy</h1>
         <p class="subtitle">Resim Galerisi</p>
       </div>
-      <input type="text" class="search-box" id="search-input" placeholder="Ara...">
+      <div class="header-right">
+        <button class="list-toggle-btn" id="list-toggle-btn">🛒 Listem <span class="list-count" id="list-count">0</span></button>
+        <input type="text" class="search-box" id="search-input" placeholder="Ara...">
+      </div>
     </div>
   </div>
 
@@ -34,6 +37,36 @@
     </div>
   </div>
 
+  <!-- 🛒 Liste Paneli -->
+  <div class="list-overlay" id="list-overlay" hidden></div>
+  <div class="list-panel" id="list-panel" hidden>
+    <div class="list-panel-header">
+      <h3>🛒 Listem</h3>
+      <button class="list-panel-close" id="list-panel-close">✕</button>
+    </div>
+    <div id="list-items" class="list-items">
+      <p class="list-empty-msg">Henüz ürün eklenmedi.</p>
+    </div>
+    <div class="list-panel-footer">
+      <button class="clear-list-btn" id="clear-list-btn">🗑️ Listeyi Temizle</button>
+      <button class="whatsapp-btn" id="whatsapp-btn" disabled>📱 WhatsApp'ta Gönder</button>
+    </div>
+  </div>
+
+  <!-- 📦 Adet Seçme Modalı -->
+  <div class="qty-modal-overlay" id="qty-modal-overlay" hidden>
+    <div class="qty-modal-box">
+      <h3 class="qty-modal-title">Listeye Ekle</h3>
+      <p class="qty-modal-product" id="qty-modal-product"></p>
+      <label class="qty-label">Adet:</label>
+      <input type="text" id="qty-input" class="qty-input" placeholder="Örn: 5" inputmode="numeric">
+      <div class="qty-modal-actions">
+        <button class="qty-cancel-btn" id="qty-cancel-btn">İptal</button>
+        <button class="qty-confirm-btn" id="qty-confirm-btn">✓ Listeye Ekle</button>
+      </div>
+    </div>
+  </div>
+
   <div class="lightbox" id="lightbox" hidden>
     <div class="lb-container">
       <button class="lb-close" id="lb-close">✕</button>
@@ -49,6 +82,6 @@
     </div>
   </div>
 
-  <script src="./app.js"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>
