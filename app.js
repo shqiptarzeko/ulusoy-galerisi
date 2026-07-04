@@ -17,8 +17,10 @@ function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'
 
 // ── Path ──
 function normPath(p) {
-  if (window.location.hostname === 'shqiptarzeko.github.io') return '/ulusoy-galerisi/' + p;
-  return p;
+  // Her path segmentini ayrı ayrı encode et (/ ve . karakterlerini koru)
+  const encoded = p.split('/').map(seg => encodeURIComponent(seg).replace(/%2B/g, '+')).join('/');
+  if (window.location.hostname === 'shqiptarzeko.github.io') return '/ulusoy-galerisi/' + encoded;
+  return encoded;
 }
 
 // ── Manifest ──
