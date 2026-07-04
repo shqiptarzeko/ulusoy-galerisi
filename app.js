@@ -154,7 +154,8 @@ function renderCategoryGrid() {
 
 function openNode(node) {
   if (node.images && node.images.length) {
-    showGallery(node);
+    currentNode = node;
+    openLightbox(node.images, 0);
   } else if (Object.keys(node.children).length) {
     showSubcategoryGrid(node);
   }
@@ -252,6 +253,12 @@ function openLightbox(images, idx) {
   el('lb-download').href     = normPath(images[idx]);
   el('lb-download').download = images[idx].split('/').pop();
   el('lb-info').textContent  = (idx + 1) + ' / ' + images.length;
+
+  // Ürün adını Listeye Ekle butonuna bağla
+  const addBtn = el('lb-add-btn');
+  if (addBtn && currentNode) {
+    addBtn.onclick = e => { e.stopPropagation(); openQtyModal(currentNode.name); };
+  }
 
   const lb = el('lightbox');
   lb.hidden        = false;
