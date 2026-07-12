@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ulusoy Ürün Kataloğu 2025 — PDF</title>
+<style>
+/* ── GENEL ── */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;}
+
+/* ── ÜST YAZDIR ÇUBUĞU (ekranda görünür, PDF'e çıkmaz) ── */
+#print-bar{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  background:linear-gradient(135deg,#1a237e,#283593);
+  color:#fff;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 12px rgba(0,0,0,0.25);
+}
+#print-bar h2{font-size:15px;letter-spacing:1px;}
+#print-bar p{font-size:12px;opacity:0.8;margin-top:2px;}
+.print-btn{
+  background:#FFD700;color:#111;border:none;padding:10px 28px;
+  border-radius:6px;font-size:15px;font-weight:700;cursor:pointer;
+  letter-spacing:1px;transition:transform .1s;
+}
+.print-btn:hover{transform:scale(1.04);}
+.print-bar-left{}
+.print-bar-right{display:flex;align-items:center;gap:12px;}
+.tip{font-size:11px;color:rgba(255,255,255,0.6);}
+
+/* ── SAYFA KAPSAYICI ── */
+#catalog-wrapper{margin-top:70px;padding:16px 0 40px;}
+
+/* ── KAPAK SAYFASI ── */
+.cover-page{
+  width:210mm;min-height:297mm;
+  margin:0 auto 16px;
+  background:linear-gradient(160deg,#0d1b2a 0%,#1a2744 50%,#0f3460 100%);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  page-break-after:always;
+}
+.cover-topbar{
+  position:absolute;top:0;left:0;right:0;height:7px;
+  background:linear-gradient(90deg,#FFD700,#FFA000,#FFD700);
+}
+.cover-inner{text-align:center;color:#fff;}
+.cover-brand{
+  font-size:82px;font-weight:900;letter-spacing:18px;
+  color:#FFD700;line-height:1;margin-bottom:10px;
+  text-shadow:0 2px 20px rgba(255,215,0,0.3);
+}
+.cover-year{font-size:20px;letter-spacing:12px;color:#90a4ae;margin-bottom:36px;}
+.cover-line{width:70px;height:2px;background:#FFD700;margin:0 auto 36px;}
+.cover-title{
+  font-size:16px;letter-spacing:8px;color:#cfd8dc;
+  border:1px solid rgba(255,255,255,0.18);padding:14px 44px;display:inline-block;
+}
+.cover-footer{
+  position:absolute;bottom:44px;
+  font-size:11px;color:#546e7a;letter-spacing:2px;
+}
+.cover-watermark{
+  position:absolute;font-size:280px;font-weight:900;
+  color:rgba(255,255,255,0.02);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  white-space:nowrap;user-select:none;
+}
+
+/* ── KATEGORİ SAYFASI ── */
+.cat-section{
+  width:210mm;margin:0 auto 16px;
+  background:#fff;
+  page-break-before:always;
+}
+.cat-header{
+  padding:24px 16mm 22px;color:#fff;
+  page-break-after:avoid;
+}
+.cat-name{font-size:26px;font-weight:900;letter-spacing:2px;}
+.cat-count{font-size:12px;opacity:0.75;margin-top:6px;letter-spacing:1px;}
+
+/* ── ÜRÜN GRID ── */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+  padding:14px 16mm 14px;
+  background:#fff;
+}
+.product-card{
+  border:1px solid #e0e0e0;border-radius:9px;
+  overflow:hidden;page-break-inside:avoid;
+  background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.07);
+}
+.product-card img{
+  width:100%;height:188px;object-fit:cover;
+  display:block;background:#f0f0f0;
+}
+.product-info{padding:9px 11px 11px;}
+.p-code{font-size:21px;font-weight:900;color:#111;display:block;line-height:1.1;}
+.p-var{font-size:9.5px;color:#888;letter-spacing:0.9px;display:block;margin-top:3px;}
+
+/* ── YÜKLENİYOR ── */
+#loading{
+  position:fixed;inset:0;background:rgba(10,20,40,0.95);
+  color:#fff;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:99999;
+  font-size:18px;gap:20px;
+}
+.spinner{
+  width:52px;height:52px;border:5px solid rgba(255,255,255,0.15);
+  border-top:5px solid #FFD700;border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+#loading-text{font-size:15px;color:#aaa;margin-top:4px;}
+
+/* ── PRINT ── */
+@media print{
+  #print-bar{display:none!important;}
+  #loading{display:none!important;}
+  #catalog-wrapper{margin-top:0;}
+  body{background:#fff;}
+  .cover-page{margin:0;box-shadow:none;}
+  .cat-section{margin:0;box-shadow:none;}
+  @page{size:A4;margin:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- Yükleniyor -->
+<div id="loading">
+  <div class="spinner"></div>
+  <div>Ürünler yükleniyor...</div>
+  <div id="loading-text">Lütfen bekleyin</div>
+</div>
+
+<!-- Yazdır Çubuğu -->
+<div id="print-bar">
+  <div class="print-bar-left">
+    <h2>🖨️ Ulusoy Ürün Kataloğu 2025</h2>
+    <p id="status-text">Yükleniyor...</p>
+  </div>
+  <div class="print-bar-right">
+    <span class="tip">Chrome/Edge kullanın → Hedef: "PDF Olarak Kaydet"</span>
+    <button class="print-btn" onclick="window.print()">📄 PDF'e Kaydet</button>
+  </div>
+</div>
+
+<!-- Katalog -->
+<div id="catalog-wrapper">
+  <div id="catalog-content"></div>
+</div>
+
+<script>
+const MANIFEST_URL = './scripts/manifest.json';
+
+const CAT_ORDER    = ['ANAOKUL','İLKOKUL','SIRT','OMUZ','SPOR'];
+const CAT_COLORS   = [
+  {bg:'#b71c1c',bg2:'#e53935'},
+  {bg:'#1565c0',bg2:'#1e88e5'},
+  {bg:'#1b5e20',bg2:'#43a047'},
+  {bg:'#4a148c',bg2:'#8e24aa'},
+  {bg:'#e65100',bg2:'#fb8c00'},
+  {bg:'#004d40',bg2:'#00897b'},
+];
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+async function buildCatalog(){
+  let manifest;
+  try {
+    const r = await fetch(MANIFEST_URL);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    manifest = await r.json();
+  } catch(e) {
+    document.getElementById('loading').innerHTML =
+      `<div style="color:#ff6b6b;font-size:16px;text-align:center;padding:40px">
+        ⚠️ Manifest yüklenemedi!<br><br>
+        <small>Lütfen önce <b>start_server.bat</b>'ı çalıştırın<br>
+        ve sayfayı <b>http://127.0.0.1:8000/katalog_print.html</b> olarak açın.</small>
+       </div>`;
+    return;
+  }
+
+  const allCats = (manifest.categories||[]).filter(c => !c.name.startsWith('TEST'));
+
+  // Grupla
+  const groups = new Map();
+  for(const cat of allCats){
+    const parts   = cat.name.replace(/\\/g,'/').split('/').filter(Boolean);
+    const mainCat = parts.length>=2 ? parts[1] : parts[0];
+    const rawName = parts.length>=3 ? parts[2] : '';
+    if(!cat.images||cat.images.length===0) continue;
+    const m = rawName.match(/^(\d+)\s*(.*)$/);
+    if(!groups.has(mainCat)) groups.set(mainCat,[]);
+    groups.get(mainCat).push({
+      code    : m ? m[1] : rawName,
+      variant : m ? m[2].toUpperCase() : rawName.toUpperCase(),
+      img     : cat.images[0]
+    });
+  }
+
+  // Sırala
+  const sorted = [...groups.entries()].sort(([a],[b])=>{
+    const ai = CAT_ORDER.findIndex(o=>a.toUpperCase().includes(o));
+    const bi = CAT_ORDER.findIndex(o=>b.toUpperCase().includes(o));
+    return (ai<0?99:ai)-(bi<0?99:bi);
+  });
+
+  const bugun = new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
+  const wrapper = document.getElementById('catalog-content');
+  const html    = [];
+
+  // ── Kapak ──
+  html.push(`
+<div class="cover-page">
+  <div class="cover-topbar"></div>
+  <div class="cover-watermark">U</div>
+  <div class="cover-inner">
+    <div class="cover-brand">ULUSOY</div>
+    <div class="cover-year">2025</div>
+    <div class="cover-line"></div>
+    <div class="cover-title">ÜRÜN KATALOĞU</div>
+  </div>
+  <div class="cover-footer">${esc(bugun)} &nbsp;|&nbsp; ${allCats.length} Ürün &nbsp;|&nbsp; ${sorted.length} Kategori</div>
+</div>`);
+
+  // ── Kategoriler ──
+  sorted.forEach(([catName, products], idx)=>{
+    const c = CAT_COLORS[idx % CAT_COLORS.length];
+    html.push(`<div class="cat-section">`);
+    html.push(`<div class="cat-header" style="background:linear-gradient(135deg,${c.bg},${c.bg2})">
+  <div class="cat-name">${esc(catName)}</div>
+  <div class="cat-count">${products.length} ÜRÜN</div>
+</div>
+<div class="products-grid">`);
+    products.forEach(p=>{
+      html.push(`<div class="product-card">
+  <img src="${esc(p.img)}" alt="${esc(p.code+' '+p.variant)}" loading="lazy">
+  <div class="product-info">
+    <span class="p-code">${esc(p.code)}</span>
+    <span class="p-var">${esc(p.variant)}</span>
+  </div>
+</div>`);
+    });
+    html.push(`</div></div>`); // grid + section
+  });
+
+  wrapper.innerHTML = html.join('\n');
+
+  // Resimlerin yüklenmesini bekle
+  const imgs = wrapper.querySelectorAll('img');
+  document.getElementById('loading-text').textContent =
+    `0 / ${imgs.length} görsel yükleniyor...`;
+
+  let loaded = 0;
+  await Promise.all(Array.from(imgs).map(img =>
+    new Promise(res=>{
+      const done = ()=>{
+        loaded++;
+        document.getElementById('loading-text').textContent =
+          `${loaded} / ${imgs.length} görsel yüklendi`;
+        res();
+      };
+      if(img.complete) done();
+      else { img.onload=done; img.onerror=done; }
+    })
+  ));
+
+  // Gizle
+  document.getElementById('loading').style.display='none';
+  document.getElementById('status-text').textContent =
+    `${allCats.length} ürün hazır — PDF'e kaydetmek için sağdaki butona tıklayın`;
+}
+
+buildCatalog();
+</script>
+</body>
+</html>

@@ -92,7 +92,6 @@ function createCategoryCard(node, onClick) {
   const firstImage = getFirstImage(node);
   const imageCount = countAllImages(node);
   const isLeaf     = node.images && node.images.length > 0;
-  const is2025     = node.name === '2025';
 
   // Görsel
   if (firstImage) {
@@ -114,13 +113,11 @@ function createCategoryCard(node, onClick) {
 
   const nameEl      = document.createElement('p');
   nameEl.className  = 'category-card-name';
-  nameEl.textContent = is2025 ? '2025 Koleksiyonu' : node.name;
+  nameEl.textContent = node.name;
 
   const countEl      = document.createElement('p');
   countEl.className  = 'category-card-count';
-  countEl.textContent = is2025
-    ? '🛒 Ürünleri Görmek İçin Tıklayın'
-    : (imageCount + ' fotoğraf');
+  countEl.textContent = imageCount + ' fotoğraf';
 
   info.appendChild(nameEl);
   info.appendChild(countEl);
@@ -168,6 +165,23 @@ function showSubcategoryGrid(node) {
   grid.hidden = false;
   el('gallery-section').hidden = true;
   grid.innerHTML = '';
+  
+  // Geri butonu
+  const backContainer = document.createElement('div');
+  backContainer.style.gridColumn = '1 / -1';
+  backContainer.style.marginBottom = '20px';
+  const backBtn = document.createElement('button');
+  backBtn.className = 'back-btn';
+  backBtn.textContent = '← Geri';
+  backBtn.style.cursor = 'pointer';
+  backBtn.addEventListener('click', () => {
+    const parent = node.parent && node.parent !== treeRoot ? node.parent : null;
+    if (parent) showSubcategoryGrid(parent);
+    else renderCategoryGrid();
+  });
+  backContainer.appendChild(backBtn);
+  grid.appendChild(backContainer);
+  
   Object.values(node.children).forEach(child => {
     grid.appendChild(createCategoryCard(child, () => openNode(child)));
   });
